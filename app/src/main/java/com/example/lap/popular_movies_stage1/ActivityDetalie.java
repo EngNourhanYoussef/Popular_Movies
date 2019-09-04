@@ -29,7 +29,7 @@ public class ActivityDetalie extends AppCompatActivity {
     private RecyclerView mRecyclerViewReviews;
 
     private static Bundle mBundleRecyclerViewState;
-    private final String KEY_RECYCLER_STATE = "recycler_state";
+
     private Movies movies;
     private TrailerAdapter mTrailerAdapter;
     private ReviewAdapter mReviewAdapter;
@@ -38,16 +38,17 @@ public class ActivityDetalie extends AppCompatActivity {
     private int id = 0;
 
     private MovieDataBase mDb;
+
     private Boolean isFav = false;
 
     @BindView(R.id.movie_posters)
-    ImageView Poster ;
+    ImageView Poster;
     @BindView(R.id.overview)
-    TextView OverView ;
+    TextView OverView;
     @BindView(R.id.tv_Title)
     TextView Movei_Name;
     @BindView(R.id.release_data)
-    TextView DataRelease ;
+    TextView DataRelease;
     @BindView(R.id.tv_detail_rate)
     TextView MovieRate;
     @BindView(R.id.trailer_error_message)
@@ -75,8 +76,7 @@ public class ActivityDetalie extends AppCompatActivity {
             }
         });
     }
-
-    private void setFavorite(Boolean fav){
+    private void setFavorite(Boolean fav) {
         if (fav) {
             isFav = true;
             mFavButton.setImageResource(R.drawable.ic_favorite_solid_24dp);
@@ -85,31 +85,62 @@ public class ActivityDetalie extends AppCompatActivity {
             mFavButton.setImageResource(R.drawable.ic_favorite_border_black_24dp);
         }
         ButterKnife.bind(this);
-
-      //stackoverflow.com_how-to-pass-json-image-from-recycler-view-to-another-activity
+        //stackoverflow.com_how-to-pass-json-image-from-recycler-view-to-another-activity
         String MovieImage = getIntent().getStringExtra("poster");
         String title = getIntent().getStringExtra("title");
         String Movierate = getIntent().getStringExtra("rate");
         String release = getIntent().getStringExtra("release");
         String overview = getIntent().getStringExtra("overview");
 
-
-       Movei_Name.setText(title);
-       OverView.setText(overview);
-      MovieRate.setText(Movierate);
-       DataRelease.setText(release);
+        Movei_Name.setText(title);
+        OverView.setText(overview);
+        MovieRate.setText(Movierate);
+        DataRelease.setText(release);
         Picasso.get()
                 .load(MovieImage)
                 .placeholder(R.drawable.image_loading)
                 .error(R.drawable.image_not_found)
                 .into(Poster);
+        // Favorite
+        // Favorite
+        mFavButton.setOnClickListener(new View.OnClickListener() {
+            //@Override
+            public void onClick(View v) {
+                final FavoriteMovie mov = new FavoriteMovie(
+                        Integer.parseInt(movies.getId()),
+                        movies.getTitle(),
+                        movies.getRelease(),
+                        movies.getRate(),
+                        movies.getOverview(),
+                        movies.getPoster()
+
+                );
+                MovieExecutors.getInstance().diskIO().execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (isFav) {
+                            // delete item
+                            mDb.MovieDao().deleteMovie(mov);
+                        } else {
+                            // insert item
+                            mDb.MovieDao().insertMovie(mov);
+                        }
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                setFavorite(!isFav);
+                            }
+                        });
+                    }
+
+                });
+            }
+        });
+
 
         loadTrailerData();
         loadReviewData();
-
     }
-
-
     private void loadTrailerData() {
         String trailerId = String.valueOf(id);
         new FetchTrailerTask().execute(trailerId);
@@ -129,7 +160,7 @@ public class ActivityDetalie extends AppCompatActivity {
 
         @Override
         protected Trailer[] doInBackground(String... params) {
-            if (params.length == 0){
+            if (params.length == 0) {
                 return null;
             }
 
@@ -171,7 +202,7 @@ public class ActivityDetalie extends AppCompatActivity {
 
         @Override
         protected Review[] doInBackground(String... params) {
-            if (params.length == 0){
+            if (params.length == 0) {
                 return null;
             }
 
@@ -200,8 +231,5 @@ public class ActivityDetalie extends AppCompatActivity {
                 mReviewErrorMessage.setVisibility(View.VISIBLE);
             }
         }
-
     }
 }
-
-
