@@ -10,13 +10,22 @@ import android.widget.ImageView;
 import com.example.lap.popular_movies_stage1.Model.Movies;
 import com.squareup.picasso.Picasso;
 
+import java.util.List;
+
 public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieAdapterViewHolder> {
 
     private Movies[] mMovieData;
+    private List<Movies> mMovieItemList;
+
     private final MovieAdapterOnClickHandler mClickHandler;
 
     public MoviesAdapter(Movies[] movie, MovieAdapterOnClickHandler clickHandler) {
         mMovieData = movie;
+        mClickHandler = clickHandler;
+
+    }
+    public MoviesAdapter( List<Movies> movieItemList , MovieAdapterOnClickHandler clickHandler){
+        mMovieItemList = movieItemList;
         mClickHandler = clickHandler;
     }
 
@@ -38,6 +47,10 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieAdapt
             int adapterPosition = getAdapterPosition();
             mClickHandler.onClick(adapterPosition);
         }
+    }
+    public void setMovieData(List<Movies> movieItemList) {
+        mMovieItemList = movieItemList;
+        notifyDataSetChanged();
     }
 
     @NonNull
