@@ -1,31 +1,25 @@
 package com.example.lap.popular_movies_stage1.Model;
 
-public class Movies {
 
-    private String  id, title, poster, release, rate, overview;
+import java.io.Serializable;
+
+public class Movies implements Serializable {
+    private String title, poster, release, rate, overview,id;
 
     //constructor
-    public Movies(String s, String title, String releaseDate, String rate, String popularity, String overview, String poster, String backdrop){
+    public Movies(){
     }
 
-    public Movies( String id ,String title, String poster, String release, String rate, String overview){
-        this.id = id;
+    public Movies(String title, String poster, String release, String rate, String overview, String id){
         this.title = title;
         this.poster = poster;
         this.release = release;
         this.rate = rate;
         this.overview = overview;
+        this.id = id;
     }
 
     //generate getters and setters
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.title = id;
-    }
-
     public String getTitle() {
         return title;
     }
@@ -65,6 +59,12 @@ public class Movies {
     public void setOverview(String overview) {
         this.overview = overview;
     }
+
+    public void setId(String id) {
+        this.title = id;
+    }
+
+    public String getId() {
+        return id;
+    }
 }
-
-
