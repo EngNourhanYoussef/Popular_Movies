@@ -8,22 +8,20 @@ public class FavoriteMovie  {
     @PrimaryKey
     private int id;
     private String title;
-    private String releaseDate;
+    private String release;
     private String rate;
-    private String popularity;
     private String overview;
     private String poster;
-    private String backdrop;
 
-    public FavoriteMovie(int id, String title, String releaseDate, String rate, String popularity, String overview, String poster, String backdrop) {
+
+    public FavoriteMovie(int id, String title, String release, String rate, String overview, String poster) {
         this.id = id;
         this.title = title;
-        this.releaseDate = releaseDate;
+        this.release = release;
         this.rate = rate;
-        this.popularity = popularity;
         this.overview = overview;
-        this.poster = poster;
-        this.backdrop = backdrop;
+        this.poster = this.poster;
+
 }
 
     public int getId() {
@@ -40,47 +38,35 @@ public class FavoriteMovie  {
         this.title = title;
     }
 
-    public String getReleaseDate() {
-        return releaseDate;
+    public String getRelease() {
+        return release;
     }
-    public void setReleaseDate(String releaseDate) {
-        this.releaseDate = releaseDate;
+    public void setRelease(String release) {
+        this.release = release;
     }
 
     public String getRate() {
         return rate;
     }
-    public void setRate(String synopsis) {
+    public void setRate(String rate) {
         this.rate = rate;
     }
 
-    public String getPopularity() {
-        return popularity;
-    }
-    public void setPopularity(String overview) {
-        this.popularity = popularity;
-    }
 
     public String getOverview() {
         return overview;
     }
-    public void setOverview(String synopsis) {
-        this.overview = synopsis;
+    public void setOverview(String overview) {
+        this.overview = overview;
     }
 
     public String getPoster() {
         return poster;
     }
-    public void setPoster(String image) {
-        this.poster = image;
+    public void setPoster(String poster) {
+        this.poster = poster;
     }
 
-    public String getBackdrop() {
-        return backdrop;
-    }
-    public void setBackdrop(String backdrop) {
-        this.backdrop = backdrop;
-    }
 
 
 }
