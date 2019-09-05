@@ -170,7 +170,7 @@ public class MainActivity extends AppCompatActivity implements MoviesAdapter.Mov
             return true;
         }
 
-        if(menuItemSelected == R.id.add_to_favorites) {
+        if(menuItemSelected == R.id.add_to_favorite) {
             ClearMovieItemList();
             makeMovieSearchQuery();
             return true;
@@ -199,7 +199,7 @@ public class MainActivity extends AppCompatActivity implements MoviesAdapter.Mov
                 for (int i=0; i<favMovs.size(); i++) {
                     Log.d(TAG,favMovs.get(i).getTitle());
                 }
-                loadMovieData();
+                makeMovieSearchQuery();
             }
         });
     }
