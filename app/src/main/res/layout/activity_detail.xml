@@ -103,18 +103,6 @@
             app:layout_constraintStart_toStartOf="@+id/tv_detail_rate"
             app:layout_constraintTop_toBottomOf="@+id/tv_detail_rate" />
 
-    <ImageView
-            android:id="@+id/add_to_favorites"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:clickable="true"
-            android:src="@drawable/ic_favorite_border_black_24dp"
-            android:paddingTop="16dp"
-            android:paddingEnd="16dp"
-            android:paddingRight="16dp"
-            app:layout_constraintStart_toStartOf="@+id/tv_detail_release_date"
-            app:layout_constraintBottom_toBottomOf="@+id/movie_posters" />
-
     <TextView
             android:id="@+id/overview"
             android:layout_width="wrap_content"
