@@ -20,7 +20,7 @@ public class FavoriteMovie  {
         this.release = release;
         this.rate = rate;
         this.overview = overview;
-        this.poster = this.poster;
+        this.poster = poster;
 
 }
 
