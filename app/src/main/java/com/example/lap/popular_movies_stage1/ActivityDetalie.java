@@ -1,12 +1,10 @@
 package com.example.lap.popular_movies_stage1;
 
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.ScrollView;
-import android.widget.TextView;
+import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
@@ -55,8 +53,8 @@ public class ActivityDetalie extends AppCompatActivity {
     TextView mTrailerErrorMessage;
     @BindView(R.id.review_error_message)
     TextView mReviewErrorMessage;
-    @BindView(R.id.add_to_favorites)
-    ImageView mFavButton;
+    @BindView(R.id.add_to_favorite)
+    ToggleButton mFavButton;
     @BindView(R.id.detail_scrollview)
     ScrollView mScrollView;
 
@@ -65,7 +63,7 @@ public class ActivityDetalie extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
         // favorite movies
-        mFavButton = findViewById(R.id.add_to_favorites);
+        mFavButton = findViewById(R.id.add_to_favorite);
         mDb = MovieDataBase.getInstance(getApplicationContext());
 
         MovieExecutors.getInstance().diskIO().execute(new Runnable() {
@@ -79,10 +77,11 @@ public class ActivityDetalie extends AppCompatActivity {
     private void setFavorite(Boolean fav) {
         if (fav) {
             isFav = true;
-            mFavButton.setImageResource(R.drawable.ic_favorite_solid_24dp);
+            mFavButton.getTextOn();
         } else {
             isFav = false;
-            mFavButton.setImageResource(R.drawable.ic_favorite_border_black_24dp);
+            mFavButton.setTextColor (Color.parseColor("#000000"));
+            mFavButton.getTextOff();
         }
         ButterKnife.bind(this);
         //stackoverflow.com_how-to-pass-json-image-from-recycler-view-to-another-activity
